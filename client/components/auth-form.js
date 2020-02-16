@@ -20,21 +20,23 @@ const AuthForm = props => {
                 {name === 'login' ? 'SIGN IN' : 'REGISTER'}
               </h5>
               <div className="row">
+                {name === 'login' ? null : (
+                  <div className="input-field col s12">
+                    <label htmlFor="accountName">
+                      <small>Full Name</small>
+                    </label>
+                    <input name="accountName" type="text" required />
+                  </div>
+                )}
                 <div className="input-field col s12">
-                  <label htmlFor="accountName">
-                    <medium>Full Name</medium>
+                  <label htmlFor="email">
+                    <small>Email</small>
                   </label>
-                  <input name="accountName" type="text" required />
-                </div>
-                <div className="input-field col s12">
-                  <label htmlFor="accountEmail">
-                    <medium>Email</medium>
-                  </label>
-                  <input name="accountEmail" type="text" required />
+                  <input name="email" type="text" required />
                 </div>
                 <div className="input-field col s12">
                   <label htmlFor="password">
-                    <medium>Password</medium>
+                    <small>Password</small>
                   </label>
                   <input name="password" type="password" required />
                 </div>
@@ -71,10 +73,6 @@ const AuthForm = props => {
 
 /**
  * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
  */
 const mapLogin = state => {
   return {
@@ -97,9 +95,11 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
+      const accountName =
+        formName === 'signup' ? evt.target.accountName.value : ''
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(accountName, email, password, formName))
     }
   }
 }
