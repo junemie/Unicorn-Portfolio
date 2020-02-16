@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "StockPortfolio",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Stock Portfolio",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -47,14 +47,15 @@
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.9.0",
+    "materialize-css": "^1.0.0-rc.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
-    "passport-google-oauth": "^2.0.0",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-materialize": "^3.5.9",
     "react-redux": "^7.0.1",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
