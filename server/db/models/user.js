@@ -31,7 +31,8 @@ const User = db.define('user', {
   },
   balance: {
     type: Sequelize.DECIMAL(10, 2),
-    allowNull: false
+    allowNull: false,
+    defaultValue: '5000.00'
   }
 })
 
