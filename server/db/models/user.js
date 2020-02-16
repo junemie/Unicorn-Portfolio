@@ -28,6 +28,10 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('salt')
     }
+  },
+  balance: {
+    type: Sequelize.DECIMAL(10, 2),
+    allowNull: false
   }
 })
 

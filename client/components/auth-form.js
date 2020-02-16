@@ -16,7 +16,10 @@ const AuthForm = props => {
         <div className="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
           <form onSubmit={handleSubmit} name={name}>
             <div className="card-content">
-              <h5 className="card-title">
+              <h5
+                className="card-title"
+                style={{textAlign: 'center', color: '#2bbbad'}}
+              >
                 {name === 'login' ? 'SIGN IN' : 'REGISTER'}
               </h5>
               <div className="row">
@@ -42,7 +45,7 @@ const AuthForm = props => {
                 </div>
                 <div className="col s12">
                   <button
-                    className="btn waves-effect waves-light right-align #ab47bc purple lighten-1"
+                    className="btn waves-effect waves-light right-align"
                     type="submit"
                     name="action"
                   >
@@ -60,7 +63,10 @@ const AuthForm = props => {
                 )}
                 {error &&
                   error.response && (
-                    <div className="col s12"> {error.response.data} </div>
+                    <div className="col s12" style={{color: '#fc7070'}}>
+                      {' '}
+                      {error.response.data}{' '}
+                    </div>
                   )}
               </div>
             </div>

@@ -9,7 +9,12 @@ body {
   padding: 0;
   margin: 0;
   width: 100vw;
-  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
+  /* background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%); */
+  background: -webkit-linear-gradient(
+    136deg,
+    rgb(116, 235, 213) 0%,
+    rgb(63, 43, 150) 100%
+  );
 }
 app {
   height: 100vh;
