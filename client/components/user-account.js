@@ -45,7 +45,6 @@ export const UserAccount = props => {
                   </label>
                   <input name="qty" type="text" style={styledInput} required />
                 </div>
-
                 <div
                   className="col s12"
                   style={{paddingLeft: '0px', paddingRight: '0px'}}
