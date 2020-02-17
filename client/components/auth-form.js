@@ -16,12 +16,14 @@ const AuthForm = props => {
         <div className="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
           <form onSubmit={handleSubmit} name={name}>
             <div className="card-content">
-              <h5
+              <div
                 className="card-title"
                 style={{textAlign: 'center', color: '#2bbbad'}}
               >
-                {name === 'login' ? 'SIGN IN' : 'REGISTER'}
-              </h5>
+                <h5>
+                  {name === 'login' ? 'Log in to your account' : `Register`}
+                </h5>
+              </div>
               <div className="row">
                 {name === 'login' ? null : (
                   <div className="input-field col s12">
@@ -54,7 +56,7 @@ const AuthForm = props => {
                 </div>
                 {name === 'login' ? (
                   <div className="col s12">
-                    <Link to="/signup">Sign Up</Link>
+                    <span>New to us?</span> <Link to="/signup">Sign Up</Link>
                   </div>
                 ) : (
                   <div className="col s12">
