@@ -6,6 +6,10 @@ const Stock = db.define('stock', {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 })
 

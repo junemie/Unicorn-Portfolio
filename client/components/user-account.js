@@ -1,18 +1,22 @@
 import React from 'react'
 
-/**
- * COMPONENT
- */
 export const UserAccount = props => {
+  const {balance} = props
+
   let styledInput = {
     border: 'solid #d8d3d3 1px',
     borderRadius: '3px',
     width: '400px'
   }
 
-  let styledInputFieldCol = {paddingLeft: '0px', paddingRight: '0px'}
+  let styledInputFieldCol = {
+    paddingLeft: '0px',
+    paddingRight: '0px'
+  }
 
-  let styledHtmlFor = {paddingLeft: '10px'}
+  let styledHtmlFor = {
+    paddingLeft: '10px'
+  }
 
   return (
     <div className="account-container">
@@ -23,7 +27,7 @@ export const UserAccount = props => {
               className="card-title"
               style={{textAlign: 'center', color: '#2bbbad', marginTop: '10px'}}
             >
-              Current Balance (xxx)
+              Balance - ${balance}
             </h5>
             <div className="row">
               <div className="input-field col">
