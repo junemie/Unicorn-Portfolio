@@ -33,7 +33,6 @@ export const me = () => async dispatch => {
 export const auth = (name, email, password, method) => async dispatch => {
   let res
   try {
-    console.log('herel', name, email, password, method)
     if (method === 'signup') {
       res = await axios.post(`/auth/${method}`, {name, email, password})
     } else {
@@ -45,6 +44,7 @@ export const auth = (name, email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

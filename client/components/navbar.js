@@ -12,10 +12,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <div className="nav-wrapper container">
             <ul>
               <li>
-                <Link to="/add-tasks">Home</Link>
+                <Link to="/home">Home</Link>
               </li>
               <li>
-                <Link to="/user/1">Transactions</Link>
+                <Link to="/transaction">Transactions</Link>
               </li>
               <li>
                 <a href="#" onClick={handleClick}>
