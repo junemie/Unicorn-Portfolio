@@ -10,6 +10,7 @@ export const gotPortfolio = userId => async dispatch => {
   try {
     console.log('hey', typeof userId)
     const {data} = await axios.get(`/api/account/${userId}`)
+    console.log('data', data)
     dispatch(getPortfolio(data))
   } catch (err) {
     console.log(err)
@@ -19,7 +20,8 @@ export const gotPortfolio = userId => async dispatch => {
 export default function(state = defaultAccount, action) {
   switch (action.type) {
     case GET_PORTFOLIO:
-      return {...action.portfolio}
+      console.log('action', action.portfolio)
+      return [...action.portfolio]
     default:
       return state
   }

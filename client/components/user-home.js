@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {UserAccount} from './user-account'
+import {PurchaseForm} from './purchaseForm'
+import {Portfolio} from './portfolio'
 import {gotPortfolio} from '../store/account'
+
 /**
  * COMPONENT
  */
@@ -10,69 +12,39 @@ class UserHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      stocks: []
+      isLoading: true
     }
   }
 
   async componentDidMount() {
-    // await this.props.gotAllProducts();
     if (this.props.userId) {
-      // console.log("propppps", this.props.userId);
       await this.props.gotPortfolio(Number(this.props.userId))
+      this.setState({isLoading: false})
     }
-
-    // if (this.props.userId) {
-    //   await this.props.getPortfolio(Number(this.props.user.id))
-    // }
-    // const portfolio = this.props.products.map(product => {
-    //   product.quantity = 1;
-    //   return product
-    // })
-    //   this.setState({ orderProduct })
   }
 
   render() {
-    const {email, userI, balance} = this.props
-    return (
+    console.log('all props', this.props)
+    const {email, userId, balance, portfolio} = this.props
+    const isLoading = this.state.isLoading
+    return !isLoading ? (
       <div className="container">
         <h3 className="left-align">Portfolio</h3>
         <br />
         <div className="row">
-          <div className="col s6">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Item Name</th>
-                  <th>Item Price</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>Alvin</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
-              </tbody>
-            </table>
+          <div
+            className="col s6"
+            style={{magrindLeft: '0px', paddingLeft: '0px'}}
+          >
+            <Portfolio portfolio={portfolio} />
           </div>
-          <div className="col s5">
-            <UserAccount balance={balance} />
+          <div className="col s5" style={{marginLeft: '30px'}}>
+            <PurchaseForm balance={balance} />
           </div>
         </div>
-        {/* </div > */}
       </div>
+    ) : (
+      <div>spinner</div>
     )
   }
 }
@@ -81,10 +53,12 @@ class UserHome extends Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log('hi there', state)
   return {
     email: state.user.email,
     userId: state.user.id,
-    balance: state.user.balance
+    balance: state.user.balance,
+    portfolio: state.account
   }
 }
 
