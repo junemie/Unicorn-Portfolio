@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {PurchaseForm} from './purchaseForm'
 import {Portfolio} from './portfolio'
-import {gotPortfolio} from '../store/account'
+import {gotPortfolio, checkedSymbols, boughtStock} from '../store/account'
 
 /**
  * COMPONENT
@@ -12,7 +11,8 @@ class UserHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLoading: true
+      isLoading: true,
+      isError: false
     }
   }
 
@@ -23,14 +23,25 @@ class UserHome extends Component {
     }
   }
 
+  submitHandler = async e => {
+    e.preventDefault()
+    const symbol = e.target.symbol.value
+    const quantity = Number(e.target.quantity.value)
+
+    await this.props.checkedSymbols(symbol)
+    if (!this.props.isSymbol || Number.isInteger(quantity) || quantity > 0) {
+      this.setState({isError: true})
+    } else {
+      await boughtStock(symbol, quantity, this.props.userId)
+    }
+  }
+
   render() {
-    console.log('all props', this.props)
     const {email, userId, balance, portfolio} = this.props
     const isLoading = this.state.isLoading
     return !isLoading ? (
       <div className="container">
         <h3 className="left-align">Portfolio</h3>
-        <br />
         <div className="row">
           <div
             className="col s6"
@@ -39,7 +50,11 @@ class UserHome extends Component {
             <Portfolio portfolio={portfolio} />
           </div>
           <div className="col s5" style={{marginLeft: '30px'}}>
-            <PurchaseForm balance={balance} />
+            <PurchaseForm
+              balance={balance}
+              submitHandler={this.submitHandler}
+              isError={this.state.isError}
+            />
           </div>
         </div>
       </div>
@@ -53,26 +68,22 @@ class UserHome extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('hi there', state)
   return {
     email: state.user.email,
     userId: state.user.id,
     balance: state.user.balance,
-    portfolio: state.account
+    portfolio: state.account.portfolio,
+    isSymbol: state.account.status
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    gotPortfolio: userId => dispatch(gotPortfolio(userId))
+    gotPortfolio: userId => dispatch(gotPortfolio(userId)),
+    checkedSymbols: symbol => dispatch(checkedSymbols(symbol)),
+    boughtStock: (symbol, qty, userId) =>
+      dispatch(boughtStock(symbol, qty, userId))
   }
 }
 
 export default connect(mapState, mapDispatchToProps)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}

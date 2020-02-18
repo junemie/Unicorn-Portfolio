@@ -16,7 +16,6 @@ export const Portfolio = props => {
       </thead>
       <tbody>
         {portfolio.map(stock => {
-          console.log(stock)
           return (
             <tr key={stock.id}>
               <td>{stock.ticker}</td>
