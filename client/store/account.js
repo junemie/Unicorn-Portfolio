@@ -51,7 +51,7 @@ export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
       if (shareCost > balance) {
         return 'Share cost is greater than your current balance!'
       } else {
-        let updatedBalance = balance - shareCost
+        let updatedBalance = (balance - shareCost).toFixed(2)
         const response = await axios.post(`/api/account/${userId}`, {
           symbol,
           qty,

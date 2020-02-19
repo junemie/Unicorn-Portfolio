@@ -56,14 +56,17 @@ router.post('/:userId', async (req, res, next) => {
       res.json(updatedBalance)
     } else {
       //otherwise create a new row in the table with symbol and userId
-      await Stock.create({
+      console.log('USERID WHEN  USER BUYS IT')
+      let newStock = await Stock.create({
         ticker: ticker,
         quantity: quantity,
         userId: userId
       })
+
+      console.log(newStock)
       res.json(updatedBalance)
     }
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 })

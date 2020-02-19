@@ -28,7 +28,3 @@ export const Portfolio = props => {
     </table>
   )
 }
-
-/**
- * CONTAINER
- */
