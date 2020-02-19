@@ -24,15 +24,17 @@ class UserHome extends Component {
   }
 
   submitHandler = async e => {
+    console.log('HELLOOOO', this.props)
     e.preventDefault()
     const symbol = e.target.symbol.value
     const quantity = Number(e.target.quantity.value)
 
     await this.props.checkedSymbols(symbol)
-    if (!this.props.isSymbol || Number.isInteger(quantity) || quantity > 0) {
-      this.setState({isError: true})
+    console.log()
+    if ((Number.isInteger(quantity), quantity > 1, this.props.isSymbol)) {
+      await this.props.boughtStock(symbol, quantity, this.props.userId)
     } else {
-      await boughtStock(symbol, quantity, this.props.userId)
+      this.setState({isError: true})
     }
   }
 
@@ -73,7 +75,7 @@ const mapState = state => {
     userId: state.user.id,
     balance: state.user.balance,
     portfolio: state.account.portfolio,
-    isSymbol: state.account.status
+    isSymbol: state.account.isSymbol
   }
 }
 
