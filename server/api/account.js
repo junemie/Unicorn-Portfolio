@@ -22,14 +22,14 @@ router.post('/:userId', async (req, res, next) => {
     let ticker = req.body.symbol
     let quantity = req.body.qty
     let updatedBalance = req.body.updatedBalance
+    console.log(typeof updatedBalance)
 
-    console.log('FORNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN', updatedBalance)
-    //Update Uesr account balance
+    //Update Userr account balance
     await User.update(
       {balance: updatedBalance},
       {
         where: {
-          userId: userId
+          id: userId
         }
       }
     )
@@ -53,15 +53,15 @@ router.post('/:userId', async (req, res, next) => {
           }
         }
       )
-      res.json(stock)
+      res.json(updatedBalance)
     } else {
       //otherwise create a new row in the table with symbol and userId
-      let newStock = await Stock.create({
+      await Stock.create({
         ticker: ticker,
         quantity: quantity,
         userId: userId
       })
-      res.json(newStock)
+      res.json(updatedBalance)
     }
   } catch (error) {
     console.log(error)

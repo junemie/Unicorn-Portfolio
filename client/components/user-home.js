@@ -12,7 +12,8 @@ class UserHome extends Component {
     super(props)
     this.state = {
       isLoading: true,
-      isError: false
+      isError: false,
+      balance: this.props.balance
     }
   }
 
@@ -24,22 +25,28 @@ class UserHome extends Component {
   }
 
   submitHandler = async e => {
-    console.log('this is the all props', this.props)
-    console.log('PRICEEEEE', typeof Number(this.props.balance))
-    let balance = Number(this.props.balance)
+    let balance = Number(this.state.balance)
     e.preventDefault()
+
     const symbol = e.target.symbol.value
     const quantity = Number(e.target.quantity.value)
+    this.setState({isLoading: true})
+
     await this.props.checkedSymbols(symbol)
     if (Number.isInteger(quantity) && quantity > 0 && this.props.isSymbol) {
       await this.props.boughtStock(symbol, quantity, this.props.userId, balance)
+      console.log(this.props.newBalance)
+      this.setState({
+        balance: this.props.newBalance,
+        isLoading: false
+      })
     } else {
       this.setState({isError: true})
     }
   }
 
   render() {
-    const {email, userId, balance, portfolio} = this.props
+    const {email, userId, portfolio} = this.props
     const isLoading = this.state.isLoading
     return !isLoading ? (
       <div className="container">
@@ -53,7 +60,7 @@ class UserHome extends Component {
           </div>
           <div className="col s5" style={{marginLeft: '30px'}}>
             <PurchaseForm
-              balance={balance}
+              balance={this.state.balance}
               submitHandler={this.submitHandler}
               isError={this.state.isError}
             />
@@ -75,7 +82,8 @@ const mapState = state => {
     userId: state.user.id,
     balance: state.user.balance,
     portfolio: state.account.portfolio,
-    isSymbol: state.account.isSymbol
+    isSymbol: state.account.isSymbol,
+    newBalance: state.account.newBalance
   }
 }
 

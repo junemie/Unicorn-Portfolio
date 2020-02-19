@@ -8,12 +8,13 @@ const BUY_STOCK = 'BUY_STOCK'
 
 const defaultAccount = {
   portfolio: [],
-  isSymbol: false
+  isSymbol: false,
+  newBalance: 0
 }
 
 const getPortfolio = portfolio => ({type: GET_PORTFOLIO, portfolio})
 const checkSymbol = symbol => ({type: CHECK_SYMBOL, symbol})
-const buyStock = () => ({type: BUY_STOCK})
+const buyStock = newBalance => ({type: BUY_STOCK, newBalance})
 
 export const gotPortfolio = userId => async dispatch => {
   try {
@@ -56,7 +57,7 @@ export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
           qty,
           updatedBalance
         })
-        return dispatch(buyStock(response))
+        return dispatch(buyStock(response.data))
       }
     }
   } catch (error) {
@@ -68,10 +69,12 @@ export default function(state = defaultAccount, action) {
   console.log('state', state)
   switch (action.type) {
     case GET_PORTFOLIO:
-      console.log({...action.portfolio})
       return {...state, portfolio: [...action.portfolio]}
     case CHECK_SYMBOL:
       return {...state, isSymbol: action.symbol}
+    case BUY_STOCK:
+      console.log('newbalance', action.newBalance)
+      return {...state, newBalance: action.newBalance}
     default:
       return state
   }
