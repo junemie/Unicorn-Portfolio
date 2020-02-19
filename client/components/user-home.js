@@ -24,15 +24,15 @@ class UserHome extends Component {
   }
 
   submitHandler = async e => {
-    console.log('HELLOOOO', this.props)
+    console.log('this is the all props', this.props)
+    console.log('PRICEEEEE', typeof Number(this.props.balance))
+    let balance = Number(this.props.balance)
     e.preventDefault()
     const symbol = e.target.symbol.value
     const quantity = Number(e.target.quantity.value)
-
     await this.props.checkedSymbols(symbol)
-    console.log()
-    if ((Number.isInteger(quantity), quantity > 1, this.props.isSymbol)) {
-      await this.props.boughtStock(symbol, quantity, this.props.userId)
+    if (Number.isInteger(quantity) && quantity > 0 && this.props.isSymbol) {
+      await this.props.boughtStock(symbol, quantity, this.props.userId, balance)
     } else {
       this.setState({isError: true})
     }
@@ -83,8 +83,8 @@ const mapDispatchToProps = dispatch => {
   return {
     gotPortfolio: userId => dispatch(gotPortfolio(userId)),
     checkedSymbols: symbol => dispatch(checkedSymbols(symbol)),
-    boughtStock: (symbol, qty, userId) =>
-      dispatch(boughtStock(symbol, qty, userId))
+    boughtStock: (symbol, qty, userId, balance) =>
+      dispatch(boughtStock(symbol, qty, userId, balance))
   }
 }
 

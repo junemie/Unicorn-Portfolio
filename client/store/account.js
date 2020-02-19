@@ -26,8 +26,8 @@ export const gotPortfolio = userId => async dispatch => {
 
 export const checkedSymbols = searchSymbol => async dispatch => {
   try {
+    //TODO CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
     const {data} = await axios.get(
-      //TODO CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
       `https://sandbox.iexapis.com/beta/ref-data/symbols?token=${key}`
     )
     let response = data.some(symbol => symbol.symbol === searchSymbol)
@@ -37,20 +37,27 @@ export const checkedSymbols = searchSymbol => async dispatch => {
   }
 }
 
-export const boughtStock = (symbol, qty, userId) => async dispatch => {
+export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
   try {
     //TODO
     //CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
-    const {price} = await axios.get(
+    const {data} = await axios.get(
       `https://sandbox.iexapis.com/stable/stock/${symbol}/price?token=${key}`
     )
-    if (price) {
-      const response = await axios.post(`/api/account/${userId}`, {
-        symbol,
-        qty,
-        price
-      })
-      return dispatch(buyStock(response))
+
+    if (data) {
+      let shareCost = data * qty
+      if (shareCost > balance) {
+        return 'Share cost is greater than your current balance!'
+      } else {
+        let updatedBalance = balance - shareCost
+        const response = await axios.post(`/api/account/${userId}`, {
+          symbol,
+          qty,
+          updatedBalance
+        })
+        return dispatch(buyStock(response))
+      }
     }
   } catch (error) {
     console.error(error)

@@ -21,6 +21,18 @@ router.post('/:userId', async (req, res, next) => {
     let userId = req.params.userId
     let ticker = req.body.symbol
     let quantity = req.body.qty
+    let updatedBalance = req.body.updatedBalance
+
+    console.log('FORNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN', updatedBalance)
+    //Update Uesr account balance
+    await User.update(
+      {balance: updatedBalance},
+      {
+        where: {
+          userId: userId
+        }
+      }
+    )
 
     const stock = await Stock.findAll({
       where: {
@@ -33,9 +45,7 @@ router.post('/:userId', async (req, res, next) => {
     if (stock[0]) {
       let updatedQty = stock[0].quantity + quantity
       await Stock.update(
-        {
-          quantity: updatedQty
-        },
+        {quantity: updatedQty},
         {
           where: {
             ticker: ticker,
