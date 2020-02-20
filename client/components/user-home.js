@@ -24,7 +24,7 @@ class UserHome extends Component {
     }
   }
 
-  submitHandler = async e => {
+  submitHandler(e) {
     e.preventDefault()
     const symbol = e.target.symbol.value
     let balance = Number(this.state.balance)
@@ -43,7 +43,10 @@ class UserHome extends Component {
         isLoading: false
       })
     } else {
-      this.setState({isError: true})
+      this.setState({
+        isLoading: false,
+        isError: true
+      })
     }
   }
 

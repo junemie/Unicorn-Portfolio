@@ -19,6 +19,7 @@ const buyStock = newBalance => ({type: BUY_STOCK, newBalance})
 export const gotPortfolio = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/account/${userId}`)
+    // const {data} = await axios.get(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=${key}`)
     dispatch(getPortfolio(data))
   } catch (err) {
     console.log(err)
@@ -27,11 +28,12 @@ export const gotPortfolio = userId => async dispatch => {
 
 export const checkedSymbols = searchSymbol => async dispatch => {
   try {
-    //TODO CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
+    //TODO: CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
     const {data} = await axios.get(
-      `https://sandbox.iexapis.com/beta/ref-data/symbols?token=${key}`
+      `https://sandbox.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${key}`
     )
-    let response = data.some(symbol => symbol.symbol === searchSymbol)
+    let response = !!data.length
+    console.log(response)
     dispatch(checkSymbol(response))
   } catch (err) {
     console.log(err)
@@ -73,7 +75,6 @@ export default function(state = defaultAccount, action) {
     case CHECK_SYMBOL:
       return {...state, isSymbol: action.symbol}
     case BUY_STOCK:
-      console.log('newbalance', action.newBalance)
       return {...state, newBalance: action.newBalance}
     default:
       return state

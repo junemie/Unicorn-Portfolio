@@ -1,60 +1,85 @@
 import React, {Component} from 'react'
 import {gotTransactions} from '../store/transaction'
 import {connect} from 'react-redux'
-
+import * as moment from 'moment'
 class Transaction extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isLoading: true
+    }
   }
   // const {portfolio} = props  // const style = {
   //   color: '#2bbbad'
   // }
   async componentDidMount() {
     const {gotTransactions, userId} = this.props
-    let transactions = await gotTransactions(userId)
-    console.log(transactions)
+    await gotTransactions(userId)
+    if (this.props.transactions) {
+      this.setState({
+        isLoading: false
+      })
+    }
+  }
+
+  dateFormat(date) {
+    return moment(date).format('MM/DD/YYYY')
   }
 
   render() {
     const {transactions} = this.props
-    return (
-      <table className="highlight centered striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Symbol</th>
-            <th>Shares</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1/2/2020</td>
-            <td>AAPL</td>
-            <td>
-              #212.20
-              <br />
-              <span>83 shares at $2.12</span>
-            </td>
-          </tr>
-          {/* {transactions.map(transaction => {
-          return (
-            <tr key={stock.id}>
-              <td>{stock.ticker}</td>
-              <td>{stock.quantity}</td>
-              <td>xxx</td>
-            </tr>
-          )
-        })} */}
-        </tbody>
-      </table>
+    return !this.state.isLoading ? (
+      <div className="container">
+        <h3 className="left-align">Portfolio</h3>
+        <div className="row">
+          <div
+            className="col s6"
+            style={{magrindLeft: '0px', paddingLeft: '0px'}}
+          >
+            <table className="highlight centered">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Symbol</th>
+                  <th>Shares</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map(transaction => {
+                  return (
+                    <tr key={transaction.id}>
+                      <td>
+                        {moment(transaction.createdAt).format('MM/DD/YYYY')}{' '}
+                        <br />
+                      </td>
+                      <td>
+                        {transaction.ticker} <br />
+                      </td>
+                      <td>
+                        {' '}
+                        $222.22
+                        <br />
+                        <span>{transaction.quantity} shares at $XXXX</span>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>{' '}
+        </div>
+      </div>
+    ) : (
+      <div>spinner</div>
     )
   }
 }
 
 const mapState = state => {
+  console.log('THIS IS THE STATE', state)
   return {
     userId: state.user.id,
-    transactions: state.transactions
+    transactions: state.transaction
   }
 }
 
