@@ -5,6 +5,7 @@ export const Portfolio = props => {
     color: '#2bbbad'
   }
   const {portfolio} = props
+  console.log(portfolio, '<==============================')
   return (
     <table className="highlight centered">
       <thead style={style}>
@@ -23,7 +24,7 @@ export const Portfolio = props => {
               <td>
                 ${stock.shareCost}
                 <br />
-                <span>$${stock.sharePrice} / share</span>
+                <span>${stock.sharePrice} / share</span>
               </td>
             </tr>
           )

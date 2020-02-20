@@ -19,8 +19,13 @@ class UserHome extends Component {
 
   async componentDidMount() {
     if (this.props.userId) {
+      this.setState({
+        isLoading: true
+      })
       await this.props.gotPortfolio(Number(this.props.userId))
-      this.setState({isLoading: false})
+      this.setState({
+        isLoading: false
+      })
     }
   }
 
@@ -52,7 +57,7 @@ class UserHome extends Component {
   }
 
   render() {
-    const {email, userId, portfolio} = this.props
+    const {portfolio} = this.props
     const isLoading = this.state.isLoading
     return !isLoading ? (
       <div className="container">
@@ -83,6 +88,7 @@ class UserHome extends Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log('state', state)
   return {
     email: state.user.email,
     userId: state.user.id,
