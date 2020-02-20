@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Sequelize = require('sequelize')
-const {Stock, StockOrder, User} = require('../db/models')
+const {Stock, transaction, User} = require('../db/models')
 
 module.exports = router
 
@@ -17,7 +17,7 @@ router.get('/:userId', async (req, res, next) => {
 
     console.log(stocks, 'HEREEEEEE IS STOCKSSSSSSS')
 
-    // const stocks = StockOrder.getStock();
+    // const stocks = transaction.getStock();
   } catch (error) {
     console.log(error)
     next(err)

@@ -15,21 +15,24 @@ export const Portfolio = props => {
         </tr>
       </thead>
       <tbody>
-        {portfolio.map(stock => {
-          console.log(stock)
-          return (
-            <tr key={stock.id}>
-              <td>{stock.ticker}</td>
-              <td>{stock.quantity}</td>
-              <td>xxx</td>
-            </tr>
-          )
-        })}
+        {portfolio ? (
+          portfolio.map(stock => {
+            return (
+              <tr key={stock.id}>
+                <td>{stock.ticker}</td>
+                <td>{stock.quantity}</td>
+                <td>
+                  ${stock.shareCost}
+                  <br />
+                  <span>${stock.sharePrice} / share</span>
+                </td>
+              </tr>
+            )
+          })
+        ) : (
+          <div />
+        )}
       </tbody>
     </table>
   )
 }
-
-/**
- * CONTAINER
- */
