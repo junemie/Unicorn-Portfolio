@@ -12,15 +12,27 @@ const defaultAccount = {
   newBalance: 0
 }
 
-const getPortfolio = portfolio => ({type: GET_PORTFOLIO, portfolio})
+const getPortfolio = response => ({
+  type: GET_PORTFOLIO,
+  portfolio: response.portfolio,
+  stockPrices: response.stockPrices
+})
 const checkSymbol = symbol => ({type: CHECK_SYMBOL, symbol})
 const buyStock = newBalance => ({type: BUY_STOCK, newBalance})
 
 export const gotPortfolio = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/account/${userId}`)
-    // const {data} = await axios.get(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=${key}`)
-    dispatch(getPortfolio(data))
+    console.log(data, 'OKKKKKKKK')
+    const symbolStr = data.map(stock => stock.ticker).toString()
+    const stockPrices = await axios.get(
+      `https://sandbox.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price&token=${key}`
+    )
+
+    //TODO: Left off here where Im trying to get the price of the stock to calculate qty * share
+    console.log('OKKK:========>', data, stockPrices.data)
+
+    dispatch(getPortfolio({potfolio: data, stockPrices: stockPrices.data}))
   } catch (err) {
     console.log(err)
   }
@@ -68,7 +80,6 @@ export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
 }
 
 export default function(state = defaultAccount, action) {
-  console.log('state', state)
   switch (action.type) {
     case GET_PORTFOLIO:
       return {...state, portfolio: [...action.portfolio]}
