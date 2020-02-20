@@ -28,9 +28,10 @@ class Transaction extends Component {
 
   render() {
     const {transactions} = this.props
+    console.log('this', this.props)
     return !this.state.isLoading ? (
       <div className="container">
-        <h3 className="left-align">Portfolio</h3>
+        <h3 className="left-align">History</h3>
         <div className="row">
           <div
             className="col s6"
@@ -46,6 +47,8 @@ class Transaction extends Component {
               </thead>
               <tbody>
                 {transactions.map(transaction => {
+                  let num = transaction.quantity * transaction.sharePrice
+                  console.log(num.toFixed(2))
                   return (
                     <tr key={transaction.id}>
                       <td>
@@ -57,9 +60,13 @@ class Transaction extends Component {
                       </td>
                       <td>
                         {' '}
-                        $222.22
+                        $${transaction.sharePrice}
                         <br />
-                        <span>{transaction.quantity} shares at $XXXX</span>
+                        <span>
+                          ({transaction.quantity}) shares at ${(
+                            transaction.quantity * transaction.sharePrice
+                          ).toFixed(2)}
+                        </span>
                       </td>
                     </tr>
                   )

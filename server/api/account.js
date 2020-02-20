@@ -22,7 +22,7 @@ router.post('/:userId', async (req, res, next) => {
     let ticker = req.body.symbol
     let quantity = req.body.qty
     let updatedBalance = req.body.updatedBalance
-    console.log(typeof updatedBalance)
+    let sharePrice = req.body.price
 
     //Update User account balance
     await User.update(
@@ -38,7 +38,8 @@ router.post('/:userId', async (req, res, next) => {
     await Transaction.create({
       quantity,
       ticker,
-      userId
+      userId,
+      sharePrice
     })
 
     //Find the stock that user owns

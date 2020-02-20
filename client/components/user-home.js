@@ -92,6 +92,7 @@ const mapState = state => {
   return {
     email: state.user.email,
     userId: state.user.id,
+    method: state.user.method,
     balance: state.user.balance,
     portfolio: state.account.portfolio,
     isSymbol: state.account.isSymbol,

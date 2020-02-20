@@ -14,6 +14,9 @@ const transaction = db.define('transaction', {
   ticker: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  sharePrice: {
+    type: Sequelize.DECIMAL(10, 2)
   }
 })
 

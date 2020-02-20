@@ -5,7 +5,6 @@ export const Portfolio = props => {
     color: '#2bbbad'
   }
   const {portfolio} = props
-  console.log(portfolio, '<==============================')
   return (
     <table className="highlight centered">
       <thead style={style}>
@@ -16,19 +15,23 @@ export const Portfolio = props => {
         </tr>
       </thead>
       <tbody>
-        {portfolio.map(stock => {
-          return (
-            <tr key={stock.id}>
-              <td>{stock.ticker}</td>
-              <td>{stock.quantity}</td>
-              <td>
-                ${stock.shareCost}
-                <br />
-                <span>${stock.sharePrice} / share</span>
-              </td>
-            </tr>
-          )
-        })}
+        {portfolio ? (
+          portfolio.map(stock => {
+            return (
+              <tr key={stock.id}>
+                <td>{stock.ticker}</td>
+                <td>{stock.quantity}</td>
+                <td>
+                  ${stock.shareCost}
+                  <br />
+                  <span>${stock.sharePrice} / share</span>
+                </td>
+              </tr>
+            )
+          })
+        ) : (
+          <div />
+        )}
       </tbody>
     </table>
   )
