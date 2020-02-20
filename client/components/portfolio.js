@@ -20,7 +20,11 @@ export const Portfolio = props => {
             <tr key={stock.id}>
               <td>{stock.ticker}</td>
               <td>{stock.quantity}</td>
-              <td>xxx</td>
+              <td>
+                ${stock.shareCost}
+                <br />
+                <span>$${stock.sharePrice} / share</span>
+              </td>
             </tr>
           )
         })}

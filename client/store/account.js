@@ -1,7 +1,5 @@
 import axios from 'axios'
-
 import {key} from '../../secrets'
-
 const GET_PORTFOLIO = 'GET PORTFOLIO'
 const CHECK_SYMBOL = 'CHECK_SYMBOL'
 const BUY_STOCK = 'BUY_STOCK'
@@ -14,25 +12,36 @@ const defaultAccount = {
 
 const getPortfolio = response => ({
   type: GET_PORTFOLIO,
-  portfolio: response.portfolio,
-  stockPrices: response.stockPrices
+  portfolio: response
 })
+
 const checkSymbol = symbol => ({type: CHECK_SYMBOL, symbol})
 const buyStock = newBalance => ({type: BUY_STOCK, newBalance})
 
 export const gotPortfolio = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/account/${userId}`)
-    console.log(data, 'OKKKKKKKK')
     const symbolStr = data.map(stock => stock.ticker).toString()
+    //TODO: CHANGE SANDBOX TO PUBLISH WEB
     const stockPrices = await axios.get(
       `https://sandbox.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price&token=${key}`
     )
 
-    //TODO: Left off here where Im trying to get the price of the stock to calculate qty * share
-    console.log('OKKK:========>', data, stockPrices.data)
+    let stockPriceObj = Object.entries(stockPrices.data)
+    let formattedObj = {}
+    for (const [stockName, value] of stockPriceObj) {
+      formattedObj[stockName] =
+        Math.round((value.price + Number.EPSILON) * 100) / 100
+    }
 
-    dispatch(getPortfolio({potfolio: data, stockPrices: stockPrices.data}))
+    data.forEach(stock => {
+      if (formattedObj[stock.ticker]) {
+        let num = formattedObj[stock.ticker] * stock.quantity
+        stock.shareCost = num.toFixed(2)
+        stock.sharePrice = formattedObj[stock.ticker].toFixed(2)
+      }
+    })
+    dispatch(getPortfolio(data))
   } catch (err) {
     console.log(err)
   }
@@ -54,7 +63,7 @@ export const checkedSymbols = searchSymbol => async dispatch => {
 
 export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
   try {
-    //TODO
+    //TODO:
     //CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
     const {data} = await axios.get(
       `https://sandbox.iexapis.com/stable/stock/${symbol}/price?token=${key}`
