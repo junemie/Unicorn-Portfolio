@@ -25,17 +25,19 @@ class UserHome extends Component {
   }
 
   submitHandler = async e => {
-    let balance = Number(this.state.balance)
     e.preventDefault()
-
     const symbol = e.target.symbol.value
-    const quantity = Number(e.target.quantity.value)
+    let balance = Number(this.state.balance)
+    let quantity = Number(e.target.quantity.value)
     this.setState({isLoading: true})
+    this.formCheckHandler(symbol, balance, quantity)
+  }
 
+  async formCheckHandler(symbol, balance, quantity) {
     await this.props.checkedSymbols(symbol)
     if (Number.isInteger(quantity) && quantity > 0 && this.props.isSymbol) {
       await this.props.boughtStock(symbol, quantity, this.props.userId, balance)
-      console.log(this.props.newBalance)
+      await this.props.gotPortfolio(Number(this.props.userId))
       this.setState({
         balance: this.props.newBalance,
         isLoading: false

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const stockOrder = db.define('stockOrder', {
+const transaction = db.define('transaction', {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -9,7 +9,11 @@ const stockOrder = db.define('stockOrder', {
     validate: {
       notEmpty: true
     }
+  },
+  ticker: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 
-module.exports = stockOrder
+module.exports = transaction

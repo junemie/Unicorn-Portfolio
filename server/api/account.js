@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Stock} = require('../db/models')
+const {User, Stock, Transaction} = require('../db/models')
 module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
@@ -24,7 +24,7 @@ router.post('/:userId', async (req, res, next) => {
     let updatedBalance = req.body.updatedBalance
     console.log(typeof updatedBalance)
 
-    //Update Userr account balance
+    //Update User account balance
     await User.update(
       {balance: updatedBalance},
       {
@@ -34,6 +34,14 @@ router.post('/:userId', async (req, res, next) => {
       }
     )
 
+    //Create a new row in the Transaction table to keep track of history
+    await Transaction.create({
+      quantity,
+      ticker,
+      userId
+    })
+
+    //Find the stock that user owns
     const stock = await Stock.findAll({
       where: {
         ticker,
@@ -55,15 +63,13 @@ router.post('/:userId', async (req, res, next) => {
       )
       res.json(updatedBalance)
     } else {
-      //otherwise create a new row in the table with symbol and userId
-      console.log('USERID WHEN  USER BUYS IT')
-      let newStock = await Stock.create({
+      //otherwise create a new row in the Stock table with symbol and userId
+      await Stock.create({
         ticker: ticker,
         quantity: quantity,
         userId: userId
       })
 
-      console.log(newStock)
       res.json(updatedBalance)
     }
   } catch (error) {
