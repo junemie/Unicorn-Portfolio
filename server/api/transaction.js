@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const {Stock} = require('../db/models')
+const {Transaction} = require('../db/models')
 module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    let transactions = await Stock.findAll({
+    let transactions = await Transaction.findAll({
       where: {
         userId: req.params.userId
       },
