@@ -1,17 +1,28 @@
 import React from 'react'
 
+const colors = (currentPrice, openPrice) => {
+  if (currentPrice < openPrice) {
+    return 'red'
+  } else if (currentPrice === openPrice) {
+    return 'grey'
+  } else {
+    return 'green'
+  }
+}
+
 export const Portfolio = props => {
   const style = {
     color: '#2bbbad'
   }
   const {portfolio} = props
+
   return (
     <table className="highlight centered">
       <thead style={style}>
         <tr>
           <th>Symbol</th>
           <th>Shares</th>
-          <th>Price</th>
+          <th>Equity</th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +35,17 @@ export const Portfolio = props => {
                 <td>
                   ${stock.shareCost}
                   <br />
-                  <span>${stock.sharePrice} / share</span>
+                  <span
+                    style={{
+                      backgroundColor: '#fefefe',
+                      color: `${colors(
+                        portfolio.sharePrice,
+                        portfolio.openPrice
+                      )}`
+                    }}
+                  >
+                    ${stock.sharePrice} / share{' '}
+                  </span>
                 </td>
               </tr>
             )
