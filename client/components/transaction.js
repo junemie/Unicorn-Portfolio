@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import {gotTransactions} from '../store/transaction'
 import {connect} from 'react-redux'
 import * as moment from 'moment'
+
+const style = {
+  color: '#2bbbad'
+}
+
 class Transaction extends Component {
   constructor(props) {
     super(props)
@@ -9,9 +14,7 @@ class Transaction extends Component {
       isLoading: true
     }
   }
-  // const {portfolio} = props  // const style = {
-  //   color: '#2bbbad'
-  // }
+
   async componentDidMount() {
     const {gotTransactions, userId} = this.props
     await gotTransactions(userId)
@@ -31,24 +34,23 @@ class Transaction extends Component {
     console.log('this', this.props)
     return !this.state.isLoading ? (
       <div className="container">
-        <h3 className="left-align">History</h3>
+        <h3 className="left-align tracking-in-expand">Transactions</h3>
         <div className="row">
           <div
             className="col s6"
             style={{magrindLeft: '0px', paddingLeft: '0px'}}
           >
             <table className="highlight centered">
-              <thead>
+              <thead style={style}>
                 <tr>
                   <th>Date</th>
                   <th>Symbol</th>
-                  <th>Shares</th>
+                  <th>Equity</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map(transaction => {
                   let num = transaction.quantity * transaction.sharePrice
-                  console.log(num.toFixed(2))
                   return (
                     <tr key={transaction.id}>
                       <td>
@@ -66,8 +68,10 @@ class Transaction extends Component {
                           transaction.quantity * transaction.sharePrice
                         ).toFixed(2)}
                         <br />
-                        <span>
-                          ({transaction.quantity}) shares at ${transaction}
+                        <span style={{color: 'grey'}}>
+                          ({transaction.quantity}) shares at ${
+                            transaction.sharePrice
+                          }
                         </span>
                       </td>
                     </tr>

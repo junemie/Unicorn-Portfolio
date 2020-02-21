@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {PurchaseForm} from './purchaseForm'
 import {Portfolio} from './portfolio'
+import {Spinner} from './spinner'
 import {gotPortfolio, checkedSymbols, boughtStock} from '../store/account'
 
 /**
@@ -78,7 +79,7 @@ class UserHome extends Component {
     const isLoading = this.state.isLoading
     return !isLoading ? (
       <div className="container">
-        <h3 className="left-align">Portfolio</h3>
+        <h3 className="left-align tracking-in-expand">Portfolio</h3>
         <div className="row">
           <div
             className="col s6"
@@ -97,7 +98,9 @@ class UserHome extends Component {
         </div>
       </div>
     ) : (
-      <div>spinner</div>
+      <div className="spinner">
+        <Spinner />
+      </div>
     )
   }
 }
@@ -106,7 +109,6 @@ class UserHome extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('state', state)
   return {
     email: state.user.email,
     userId: state.user.id,

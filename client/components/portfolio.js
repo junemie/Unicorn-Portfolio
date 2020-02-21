@@ -10,11 +10,12 @@ const colors = (currentPrice, openPrice) => {
   }
 }
 
+const style = {
+  color: '#2bbbad'
+}
 export const Portfolio = props => {
-  const style = {
-    color: '#2bbbad'
-  }
   const {portfolio} = props
+  console.log('prices', portfolio)
 
   return (
     <table className="highlight centered">
@@ -38,10 +39,7 @@ export const Portfolio = props => {
                   <span
                     style={{
                       backgroundColor: '#fefefe',
-                      color: `${colors(
-                        portfolio.sharePrice,
-                        portfolio.openPrice
-                      )}`
+                      color: `${colors(stock.sharePrice, stock.openPrice)}`
                     }}
                   >
                     ${stock.sharePrice} / share{' '}
