@@ -1,5 +1,8 @@
 ## Unicorn Portfolio App
 
+Check me out here! 
+https://unicorn-portfolio.herokuapp.com/
+
 ## About
 
 The Unicorn Portfolio app is an investment web application that will help you invest and track your past transactions! This application uses IEX Cloud API for most up to date stock price. The web application allows users to easily identify stock performance dynamiclly with visual color.
