@@ -16,7 +16,7 @@ export const PurchaseForm = props => {
             className="card-title"
             style={{textAlign: 'center', color: '#2bbbad'}}
           >
-            <h5>Balance - ${balance}</h5>
+            <h5>Purchase Power ${balance}</h5>
           </div>
           <div className="row">
             <div className="input-field col s12">
@@ -31,11 +31,12 @@ export const PurchaseForm = props => {
               </label>
               <input name="quantity" type="text" style={styledInput} required />
             </div>
-            <div className="col s12">
+            <div className="col s12" style={{marginRight: '0px'}}>
               <button
                 className="btn waves-effect waves-light right-align"
                 type="submit"
                 name="action"
+                style={{width: '282px'}}
               >
                 BUY
               </button>
