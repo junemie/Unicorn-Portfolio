@@ -5,14 +5,21 @@
   /* font-family: 'Nunito', sans-serif; */
   font-family: 'Walsheim', 'Helvetica', 'Arial', 'sans-serif';
   text-decoration: none;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #3f51b5;
+}
+
 /*
 font-family: 'Roboto', sans-serif;
 font-family: 'Lato', sans-serif;
 font-family: 'Poppins', sans-serif; */
 
-body {
+/* body {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -20,13 +27,12 @@ body {
   margin: 0;
   width: 100vw;
   /* background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%); */
-  background: -webkit-linear-gradient(
+/* background: -webkit-linear-gradient(
     136deg,
     rgb(116, 235, 213) 0%,
     rgb(63, 43, 150) 100%
-  );
-}
-
+  ); */
+/*
 h3 {
   color: #009688;
 }
@@ -87,4 +93,4 @@ nav.nav-center ul li a {
   border: solid red;
   border-radius: 25px;
   padding: 20px;
-}
+} */

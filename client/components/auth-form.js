@@ -4,78 +4,141 @@ import PropTypes from 'prop-types'
 import {auth} from '../store'
 import {Link} from 'react-router-dom'
 
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import {makeStyles} from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      {'Unicorn '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  )
+}
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  }
+}))
+
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
 
+const AuthForm = props => {
+  const classes = useStyles()
+  const {name, displayName, handleSubmit, error} = props
+  console.log('proppppps', name)
   return (
-    <div className="form-container">
-      <div className="valign-wrapper row login-box">
-        <div className="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
-          <form onSubmit={handleSubmit} name={name}>
-            <div className="card-content">
-              <div
-                className="card-title"
-                style={{textAlign: 'center', color: '#2bbbad'}}
-              >
-                <h5>
-                  {name === 'login' ? 'Log in to your account' : `Register`}
-                </h5>
-              </div>
-              <div className="row">
-                {name === 'login' ? null : (
-                  <div className="input-field col s12">
-                    <label htmlFor="accountName">
-                      <small>Full Name</small>
-                    </label>
-                    <input name="accountName" type="text" required />
-                  </div>
-                )}
-                <div className="input-field col s12">
-                  <label htmlFor="email">
-                    <small>Email</small>
-                  </label>
-                  <input name="email" type="text" required />
-                </div>
-                <div className="input-field col s12">
-                  <label htmlFor="password">
-                    <small>Password</small>
-                  </label>
-                  <input name="password" type="password" required />
-                </div>
-                <div className="col s12">
-                  <button
-                    className="btn waves-effect waves-light right-align"
-                    type="submit"
-                    name="action"
-                  >
-                    {displayName}
-                  </button>
-                </div>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          {name === 'login' ? 'Login' : 'Sign Up'}
+        </Typography>
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit}
+          noValidate
+          name={name}
+        >
+          <Grid container spacing={2}>
+            {name === 'login' ? null : (
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="fname"
+                  name="accountName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="accountName"
+                  label="Full Name"
+                  autoFocus
+                />
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Button
+              type="submit"
+              name="action"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              {displayName}
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
                 {name === 'login' ? (
-                  <div className="col s12">
-                    <span>New to us?</span> <Link to="/signup">Sign Up</Link>
-                  </div>
+                  <Link to="/signup">New to Us? Sign Up</Link>
                 ) : (
-                  <div className="col s12">
-                    <Link to="/login">Already have an account?</Link>
+                  <Link to="/login">Already have an account?</Link>
+                )}
+              </Grid>
+            </Grid>
+            <div className="row">
+              {error &&
+                error.response && (
+                  <div className="col s12" style={{color: '#fc7070'}}>
+                    {' '}
+                    {error.response.data}{' '}
                   </div>
                 )}
-                {error &&
-                  error.response && (
-                    <div className="col s12" style={{color: '#fc7070'}}>
-                      {' '}
-                      {error.response.data}{' '}
-                    </div>
-                  )}
-              </div>
             </div>
-          </form>
-        </div>
+          </Grid>
+        </form>
       </div>
-    </div>
+    </Container>
   )
 }
 
