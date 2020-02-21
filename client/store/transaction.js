@@ -14,12 +14,11 @@ export const gotTransactions = userId => async dispatch => {
     const {data} = await axios.get(`/api/transaction/${userId}`)
     dispatch(getTransactions(data))
   } catch (error) {
-    console.log(err)
+    console.log(error)
   }
 }
 
 export default function(state = defaultState, action) {
-  console.log('state', state)
   switch (action.type) {
     case GET_TRANACTIONS:
       return [...action.transactions]

@@ -22,14 +22,9 @@ const buyStock = newBalance => ({type: BUY_STOCK, newBalance})
 export const gotPortfolio = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/account/${userId}`)
-    console.log('THIS IS THE DATEEEEEAAA', data[0])
 
     if (data[0]) {
       const symbolStr = data.map(stock => stock.ticker).toString()
-      //TODO: CHANGE SANDBOX TO PUBLISH WEB
-      // const stockPrices = await axios.get(
-      //   `https://sandbox.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price&token=${key}`
-      // )
       const stockPrices = await axios.get(
         `https://sandbox.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price,ohlc&token=${key}`
       )
@@ -47,7 +42,6 @@ export const gotPortfolio = userId => async dispatch => {
 
       data.forEach(stock => {
         if (formattedObj[stock.ticker]) {
-          console.log(stock)
           let num = formattedObj[stock.ticker].price * stock.quantity
           stock.shareCost = num.toFixed(2)
           stock.sharePrice = formattedObj[stock.ticker].price.toFixed(2)
@@ -63,12 +57,10 @@ export const gotPortfolio = userId => async dispatch => {
 
 export const checkedSymbols = searchSymbol => async dispatch => {
   try {
-    //TODO: CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
     const {data} = await axios.get(
       `https://sandbox.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${key}`
     )
     let response = !!data.length
-    console.log(response)
     dispatch(checkSymbol(response))
   } catch (err) {
     console.log(err)
@@ -77,8 +69,6 @@ export const checkedSymbols = searchSymbol => async dispatch => {
 
 export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
   try {
-    //TODO:
-    //CHANGE THE SANDBOX TO CLOUD API -> https://cloud.iexapis.com/
     const {data} = await axios.get(
       `https://sandbox.iexapis.com/stable/stock/${symbol}/price?token=${key}`
     )

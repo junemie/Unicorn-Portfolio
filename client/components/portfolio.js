@@ -15,7 +15,6 @@ const style = {
 }
 export const Portfolio = props => {
   const {portfolio} = props
-  console.log('prices', portfolio)
 
   return (
     <table className="highlight centered">

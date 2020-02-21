@@ -17,8 +17,8 @@ class Transaction extends Component {
   }
 
   async componentDidMount() {
-    const {gotTransactions, userId} = this.props
-    await gotTransactions(userId)
+    const {userId} = this.props
+    await this.props.gotTransactions(userId)
     if (this.props.transactions) {
       this.setState({
         isLoading: false
@@ -32,7 +32,6 @@ class Transaction extends Component {
 
   render() {
     const {transactions} = this.props
-    console.log('this', this.props)
     return !this.state.isLoading ? (
       <div className="container">
         <h3 className="left-align tracking-in-expand">Transactions</h3>
@@ -51,7 +50,6 @@ class Transaction extends Component {
               </thead>
               <tbody>
                 {transactions.map(transaction => {
-                  let num = transaction.quantity * transaction.sharePrice
                   return (
                     <tr key={transaction.id}>
                       <td>
@@ -64,7 +62,6 @@ class Transaction extends Component {
                       <td>
                         {' '}
                         {}
-                        {/* $${transaction.sharePrice} */}
                         ${(
                           transaction.quantity * transaction.sharePrice
                         ).toFixed(2)}
@@ -92,7 +89,6 @@ class Transaction extends Component {
 }
 
 const mapState = state => {
-  console.log('THIS IS THE STATE', state)
   return {
     userId: state.user.id,
     transactions: state.transaction

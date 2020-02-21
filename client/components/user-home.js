@@ -31,9 +31,8 @@ class UserHome extends Component {
     }
   }
 
-  submitHandler = async e => {
+  submitHandler = e => {
     e.preventDefault()
-    console.log(this.state)
     const symbol = e.target.symbol.value
     let balance = Number(this.state.balance)
     let quantity = Number(e.target.quantity.value)

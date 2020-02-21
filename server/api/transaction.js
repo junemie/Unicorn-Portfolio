@@ -10,7 +10,6 @@ router.get('/:userId', async (req, res, next) => {
       },
       order: [['createdAt', 'ASC']]
     })
-    console.log('TRANSACTIONS', transactions)
     res.json(transactions)
   } catch (error) {
     next(error)

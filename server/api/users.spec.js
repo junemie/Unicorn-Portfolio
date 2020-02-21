@@ -11,12 +11,16 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  describe('/api/users/ creates user in the User table', () => {
     const codysEmail = 'cody@puppybook.com'
+    const codyName = 'cody pug'
+    const codyPassword = 'shhhh secret!'
 
     beforeEach(() => {
       return User.create({
-        email: codysEmail
+        name: codyName,
+        email: codysEmail,
+        password: codyPassword
       })
     })
 
@@ -28,5 +32,5 @@ describe('User routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].email).to.be.equal(codysEmail)
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  })
+})
