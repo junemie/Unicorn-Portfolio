@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {key} from '../../secrets'
+const key = process.env.KEY
 
 const GET_PORTFOLIO = 'GET PORTFOLIO'
 const CHECK_SYMBOL = 'CHECK_SYMBOL'
