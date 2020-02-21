@@ -1,6 +1,4 @@
 import axios from 'axios'
-const key = process.env.KEY
-
 const GET_PORTFOLIO = 'GET PORTFOLIO'
 const CHECK_SYMBOL = 'CHECK_SYMBOL'
 const BUY_STOCK = 'BUY_STOCK'
@@ -25,8 +23,11 @@ export const gotPortfolio = userId => async dispatch => {
 
     if (data[0]) {
       const symbolStr = data.map(stock => stock.ticker).toString()
+      const variable = await axios.get('/api/iex')
+      let access = variable.data.variable
+
       const stockPrices = await axios.get(
-        `https://cloud.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price,ohlc&token=${key}`
+        `https://cloud.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price,ohlc&token=${access}`
       )
 
       let stockPriceObj = Object.entries(stockPrices.data)
@@ -57,8 +58,11 @@ export const gotPortfolio = userId => async dispatch => {
 
 export const checkedSymbols = searchSymbol => async dispatch => {
   try {
+    const variable = await axios.get('/api/iex')
+    let access = variable.data.variable
+
     const {data} = await axios.get(
-      `https://cloud.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${key}`
+      `https://cloud.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${access}`
     )
 
     let response = !!data.length
@@ -70,8 +74,10 @@ export const checkedSymbols = searchSymbol => async dispatch => {
 
 export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
   try {
+    const variable = await axios.get('/api/iex')
+    let access = variable.data.variable
     const {data} = await axios.get(
-      `https://cloud.iexapis.com/stable/stock/${symbol}/price?token=${key}`
+      `https://cloud.iexapis.com/stable/stock/${symbol}/price?token=${access}`
     )
 
     if (data) {
