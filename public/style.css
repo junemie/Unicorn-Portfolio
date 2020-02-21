@@ -1,16 +1,8 @@
 * {
   box-sizing: border-box;
-  /* font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif; */
-  /* font-family: 'Poppins', sans-serif; */
-  /* font-family: 'Nunito', sans-serif; */
-  font-family: 'Walsheim', 'Helvetica', 'Arial', 'sans-serif';
+  font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
   text-decoration: none;
-  font-weight: bold;
 }
-/*
-font-family: 'Roboto', sans-serif;
-font-family: 'Lato', sans-serif;
-font-family: 'Poppins', sans-serif; */
 
 body {
   display: flex;

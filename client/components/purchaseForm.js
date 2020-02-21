@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const PurchaseForm = props => {
-  const {balance, submitHandler, isError} = props
+  const {balance, submitHandler, isError, message} = props
 
   let styledInput = {
     border: 'solid #d8d3d3 1px',
@@ -40,19 +40,14 @@ export const PurchaseForm = props => {
                 BUY
               </button>
             </div>
-            {/* {name === 'login' ? (
-                  <div className="col s12">
-                    <span>New to us?</span> <Link to="/signup">Sign Up</Link>
-                  </div>
-                ) : (
-                    <div className="col s12">
-                      <Link to="/login">Already have an account?</Link>
-                    </div>
-                  )} */}
+
             {isError && (
-              <div className="col s12" style={{color: '#fc7070'}}>
+              <div
+                className="col s12"
+                style={{color: '#fc7070', fontSize: '12px'}}
+              >
                 {' '}
-                {'Invalid Symbol or quantity. Please try again'}
+                {message}
               </div>
             )}
           </div>

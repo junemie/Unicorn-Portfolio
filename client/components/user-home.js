@@ -13,7 +13,8 @@ class UserHome extends Component {
     this.state = {
       isLoading: true,
       isError: false,
-      balance: this.props.balance
+      balance: this.props.balance,
+      message: ''
     }
   }
 
@@ -41,17 +42,33 @@ class UserHome extends Component {
 
   async formCheckHandler(symbol, balance, quantity) {
     await this.props.checkedSymbols(symbol)
+
+    //Check if the quantity and symbol is valid before making purchase
     if (Number.isInteger(quantity) && quantity > 0 && this.props.isSymbol) {
       await this.props.boughtStock(symbol, quantity, this.props.userId, balance)
       await this.props.gotPortfolio(Number(this.props.userId))
-      this.setState({
-        balance: this.props.newBalance,
-        isLoading: false
-      })
+      //Check if there is enough funds in the account
+      if (this.props.newBalance === Number(this.state.balance)) {
+        this.setState({
+          isError: true,
+          isLoading: false,
+          message:
+            '* Insufficient fund. Please make a deposit before purchasing.'
+        })
+      } else {
+        //If purchase was successfully made, update the balance to newBalance
+        this.setState({
+          isError: false,
+          balance: this.props.newBalance,
+          isLoading: false
+        })
+      }
     } else {
+      //If the symbol or quantity is invalid - set the error message
       this.setState({
         isLoading: false,
-        isError: true
+        isError: true,
+        message: '* Invalid Symbol or quantity. Please try again'
       })
     }
   }
@@ -74,6 +91,7 @@ class UserHome extends Component {
               balance={this.state.balance}
               submitHandler={this.submitHandler}
               isError={this.state.isError}
+              message={this.state.message}
             />
           </div>
         </div>

@@ -86,9 +86,9 @@ export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
     if (data) {
       let price = data.toFixed(2)
       let shareCost = price * qty
+      //Check is the share cost (share * qty) is greater than current balance
       if (shareCost > balance) {
-        //TODO: dispatch message to front end to l them balnce is low check this.props error
-        return 'Share cost is greater than your current balance!'
+        return dispatch(buyStock(balance))
       } else {
         let updatedBalance = (balance - shareCost).toFixed(2)
         const response = await axios.post(`/api/account/${userId}`, {
