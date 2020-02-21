@@ -1,16 +1,13 @@
 ## Unicorn Portfolio App
 
 <p align="center">
-  <img src="https://imgur.com/jg6nuBO"/>
+  <img src="https://media.giphy.com/media/cLpjlhtTK0YkmgZfyY/giphy.gif">
 </p>
 
 ## About
 
 The Unicorn Portfolio app is an investment web application that will help you invest and track your past transactions! This application uses IEX Cloud API for most up to date stock price. The web application allows users to easily identify stock performance dynamiclly with visual color.
 
-<p align="center">
-  <img src="https://imgur.com/40RYr0c"/>
-</p>
 
 ## How to run locally
 
