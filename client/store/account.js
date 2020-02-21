@@ -26,7 +26,7 @@ export const gotPortfolio = userId => async dispatch => {
     if (data[0]) {
       const symbolStr = data.map(stock => stock.ticker).toString()
       const stockPrices = await axios.get(
-        `https://sandbox.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price,ohlc&token=${key}`
+        `https://cloud.iexapis.com/v1/stock/market/batch?symbols=${symbolStr}&types=price,ohlc&token=${key}`
       )
 
       let stockPriceObj = Object.entries(stockPrices.data)
@@ -58,8 +58,9 @@ export const gotPortfolio = userId => async dispatch => {
 export const checkedSymbols = searchSymbol => async dispatch => {
   try {
     const {data} = await axios.get(
-      `https://sandbox.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${key}`
+      `https://cloud.iexapis.com/stable/search/${searchSymbol}?filter=symbol&token=${key}`
     )
+
     let response = !!data.length
     dispatch(checkSymbol(response))
   } catch (err) {
@@ -70,7 +71,7 @@ export const checkedSymbols = searchSymbol => async dispatch => {
 export const boughtStock = (symbol, qty, userId, balance) => async dispatch => {
   try {
     const {data} = await axios.get(
-      `https://sandbox.iexapis.com/stable/stock/${symbol}/price?token=${key}`
+      `https://cloud.iexapis.com/stable/stock/${symbol}/price?token=${key}`
     )
 
     if (data) {
