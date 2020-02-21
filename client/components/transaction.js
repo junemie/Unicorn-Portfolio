@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {gotTransactions} from '../store/transaction'
 import {connect} from 'react-redux'
 import * as moment from 'moment'
+import {Spinner} from './spinner'
 
 const style = {
   color: '#2bbbad'
@@ -83,7 +84,9 @@ class Transaction extends Component {
         </div>
       </div>
     ) : (
-      <div>spinner</div>
+      <div className="spinner">
+        <Spinner />
+      </div>
     )
   }
 }
