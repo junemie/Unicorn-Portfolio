@@ -1,7 +1,9 @@
 ## Unicorn Portfolio App
 
-Check me out here! 
+Deployed using Heroku - Check me out here!
+<br/>
 https://unicorn-portfolio.herokuapp.com/
+<br/>
 
 ## About
 
@@ -10,6 +12,7 @@ The Unicorn Portfolio app is an investment web application that will help you in
 <p align="center">
   <img src="https://media.giphy.com/media/cLpjlhtTK0YkmgZfyY/giphy.gif">
 </p>
+
 
 ## How to run locally
 
@@ -28,3 +31,5 @@ The Unicorn Portfolio app is an investment web application that will help you in
 * Express
 * PostgreSql
 * Sequelize
+* Heroku
+* Travis CI
