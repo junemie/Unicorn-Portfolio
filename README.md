@@ -19,7 +19,9 @@ The Unicorn Portfolio app is an investment web application that will help you in
 1.  Clone and fork this repo
 2.  Run `npm install` to load dependencies
 3.  Create database by `createdb unicorn-portfolio`
-4.  Create a secret.js file and save YOUR_SECRET_TOKEN from IEX API. The project uses sandbox mode.
+4.  Create a .env file and save YOUR_SECRET_TOKEN from IEX API.
+.env file :
+`KEY=YOUR_SECRET_TOKEN`
 5.  Run `npm run start-dev
 
 ## Technologies
