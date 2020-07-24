@@ -61,15 +61,14 @@ class Transaction extends Component {
                       </td>
                       <td>
                         {' '}
-                        {}
-                        ${(
+                        {}$
+                        {(
                           transaction.quantity * transaction.sharePrice
                         ).toFixed(2)}
                         <br />
                         <span style={{color: 'grey'}}>
-                          ({transaction.quantity}) shares at ${
-                            transaction.sharePrice
-                          }
+                          ({transaction.quantity}) shares at $
+                          {transaction.sharePrice}
                         </span>
                       </td>
                     </tr>

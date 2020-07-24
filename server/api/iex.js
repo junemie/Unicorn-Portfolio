@@ -1,5 +1,7 @@
 const router = require('express').Router()
 module.exports = router
+const dotenv = require('dotenv')
+dotenv.config()
 const KEY = process.env.KEY
 const axios = require('axios')
 
