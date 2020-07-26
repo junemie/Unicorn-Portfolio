@@ -13,6 +13,7 @@ describe('User model', () => {
     describe('correctPassword', () => {
       let cody
 
+      //await for the response
       beforeEach(async () => {
         cody = await User.create({
           name: 'cody pug',
