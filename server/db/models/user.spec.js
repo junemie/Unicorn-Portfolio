@@ -21,6 +21,7 @@ describe('User model', () => {
           password: 'bones'
         })
       })
+      console.log(cody)
 
       it('returns true if the password is correct', async () => {
         let correctPassword = await cody.correctPassword('bones')
