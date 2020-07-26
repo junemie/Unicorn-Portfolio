@@ -5,8 +5,8 @@ const db = require('../index')
 const User = db.model('user')
 
 describe('User model', () => {
-  beforeEach(async () => {
-    return await db.sync({force: true})
+  beforeEach(() => {
+    return db.sync({force: true})
   })
 
   describe('instanceMethods', () => {
