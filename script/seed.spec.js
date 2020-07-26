@@ -3,6 +3,7 @@
 
 const seed = require('./seed')
 
-describe('seed script', () => {
-  it('completes successfully', seed)
+describe('seed script', async () => {
+  let seedFile = await seed
+  it('completes successfully', seedFile)
 })
