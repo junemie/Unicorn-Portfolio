@@ -22,12 +22,14 @@ describe('User model', () => {
         })
       })
 
-      it('returns true if the password is correct', () => {
-        expect(cody.correctPassword('bones')).to.be.equal(true)
+      it('returns true if the password is correct', async () => {
+        let correctPassword = await cody.correctPassword('bones')
+        expect(correctPassword).to.be.equal(true)
       })
 
-      it('returns false if the password is incorrect', () => {
-        expect(cody.correctPassword('bonez')).to.be.equal(false)
+      it('returns false if the password is incorrect', async () => {
+        let incorrectPassword = await cody.correctPassword('bonez')
+        expect(incorrectPassword).to.be.equal(false)
       })
     })
   })
