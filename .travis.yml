@@ -1,29 +1,27 @@
 language: node_js
 node_js:
-  - 8
+  - 12 # uses version 12
 services:
-  - postgresql
+  - postgresql # starts up postgres
 addons:
-  postgresql: '10'
-dist: xenial
+  postgresql: '10' # recent postgres version on Travis
+dist: xenial # uses xenial environment
 notifications:
   email:
-    on_success: change
-    on_failure: always
+    on_success: change # default: change (only when going from broken to fixed)
+    on_failure: always # default: always (which is annoying, as it should be)
 install:
-  - npm ci
+  - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "unicorn-portfolio-test";' -U postgres
+  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test
-  - npm run build-client
-before_deploy:
-  - rm -rf node_modules
-deploy:
-  skip_cleanup: true
-  provider: heroku
-
-  app: unicorn-portfolio
-
-  api_key:
-    secure: BUJ/01S2m4BIe/nYWDgpPAIj0ZE5KANmSXoKyCxiF/lMRzZytq4FCd+pfBB3+J9NQuPlWz8xovuc37vCHeg+VQjBf8HkQ0+VKIrum0d2EV3+4vZ/rrwOHZnViaSsscFlzF7SjKjYrKzmw6DJFtVGp1NZsC0EGZ6lg6eN++ULunAN2ilTgSDktFlBBVQhRTeJhOqrEfmKUX1f6/erx06+5zW3Jjz5aJAPAyXa55X/sbvNPp3QwLquh6hcB+TQ5vTGQLbPF6uyVdJFMsvAGSQYnPeeUQ5eh36puSs56I+E0yFmEsfAQSiDgiylJAloSPJV4jvqutcxa2yDahZPXEymzoQKNrl45nspbJgjlbxp21/Y/x9TPxSAUeRXLiS++g7W4tLFLV2o7brIvYzIcom/7QkJZxsIALylb6PrKYFexN/W9cpGslNS/PQmQpk0+1Cqu7t/z8NeF4SV2H5VpiIXfrEBMr3vyLgWX1M9W/U94ShR8NwSn1LunodgIdzq4rEjnBXVCTCikOEMkeaGqDLmZkD0HU7dQMCrWog3PP3b48/7x5/3XBFMHY4LSTs3GIAK3TJ7y/3hj3cB+Gvn/b6Xax9ZNI7kPWFrc4P1Gvnf9NBsoQVJuiOfBPmYmztiyFwxx/Dv+qvO2KisLQgkIpYbnl5R8zHkVjP185E2QTb0OJ4=
+  - npm test # test the code
+  - npm run build-client # make the bundle
+# before_deploy:
+#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
+# deploy:
+#   skip_cleanup: true # prevents travis from deleting the build
+#   provider: heroku
+#   app: YOUR-HEROKU-APP-NAME-HERE # see README
+#   api_key:
+#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
