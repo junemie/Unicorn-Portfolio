@@ -3,8 +3,7 @@
   "version": "2.0.0",
   "description": "Unicorn App - The stock portfolio application",
   "engines": {
-    "node": "12.16.3",
-    "npm": "6.14.4"
+    "node": "12.16.3"
   },
   "main": "index.js",
   "scripts": {
