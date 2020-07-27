@@ -7,36 +7,26 @@ https://unicorn-portfolio.herokuapp.com/
 
 ## About
 
-The Unicorn Portfolio app is an investment web application that will help you invest and track your past transactions!
-The user can sign up and login by creating an account with an email. The Portfolio page displays user's owned stocks with total quantity. For an easy at glance performance review, the current stock price/share is dynamically color coded comparing against day's open price. The user is also able to see past transaction to track for purchase history.
+The Unicorn Portfolio app is an investment web application that will help you invest and track your past transactions! This application uses IEX Cloud API for most up to date stock price. 
 
-### Stock Price Performance Colors:
-|     Color     |   Performance                                 |
-| ------------- | --------------------------------------------- |
-| Red           | current price is less than day's open price   |
-| Green         | current price is greater than day's open price|
-| Grey          | current price is equal to day's open price    |
-
-
-This application uses IEX Cloud API for most up to date stock price.
+#### How to use the website:
+* Sign up and login by creating an account with an email. 
+* The Portfolio page displays user's owned stocks with total quantity. 
+* For an easy at glance performance review, the current stock price/share is dynamically color coded comparing against day's open price. 
+* The user is also able to see past transaction to track for purchase history.
 
 <p align="center">
   <img src="https://media.giphy.com/media/cLpjlhtTK0YkmgZfyY/giphy.gif">
 </p>
 
 
-### Portfolio Page
-<span>
-  <img src="https://media.giphy.com/media/VHxTAAcqmpk6cdcKJo/giphy.gif">
-</span>
-<span>
-  <img src="https://media.giphy.com/media/XHLwhR7UtWmARQTgNm/giphy.gif">
-</span>
 
-### Transaction History Page
-<p align="left">
-  <img src="https://media.giphy.com/media/XHLwhR7UtWmARQTgNm/giphy.gif">
-</p>
+#### Stock Price Performance Colors:
+|     Color     |   Performance                                 |
+| ------------- | --------------------------------------------- |
+| Red           | current price is less than day's open price   |
+| Green         | current price is greater than day's open price|
+| Grey          | current price is equal to day's open price    |
 
 
 ## How to run locally
@@ -48,6 +38,7 @@ This application uses IEX Cloud API for most up to date stock price.
 .env file :
 `KEY=YOUR_SECRET_TOKEN`
 5.  Run `npm run start-dev
+6. Go to `http://localhost:8080/`
 
 ## Technologies
 
